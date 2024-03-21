@@ -17,7 +17,6 @@ function App() {
     length: 2
   }))
 
-  console.log(cursors)
   useEffect(() => {
     const sub = client.graphql<GraphQLSubscription<{ subscribeCursor: { username: string, x: number, y: number } }>>({
       query: /* GraphQL */ `subscription MySubscription {
@@ -85,7 +84,8 @@ function App() {
           borderRadius: '0 10px 10px 10px',
           padding: '4px 8px',
           wordWrap: 'unset',
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
         }}>{username}</div>)}
       </div>
       <div style={{
