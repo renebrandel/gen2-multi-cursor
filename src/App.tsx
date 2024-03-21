@@ -7,6 +7,8 @@ import { uniqueNamesGenerator, animals, adjectives } from 'unique-names-generato
 
 const client = generateClient<Schema>()
 
+const colors: Record<string, string> = {}
+
 function App() {
   const usernameRef = useRef<HTMLInputElement>(null)
   const [cursors, setCursors] = useState<Record<string, { x: number, y: number }>>({})
@@ -27,6 +29,10 @@ function App() {
           return
         }
         const newCursors = { ...cursors, [event.data.subscribeCursor.username]: event.data.subscribeCursor }
+
+        if (!colors[event.data.subscribeCursor.username]) {
+          colors[event.data.subscribeCursor.username] = `hsl(${Math.random() * 360}, 100%, 50%)`
+        }
         setCursors(newCursors)
       }
     })
@@ -62,7 +68,7 @@ function App() {
         zIndex: 0
       }}>
         {Object.keys(cursors).map(username => <div style={{
-          background: 'green',
+          background: colors[username],
           position: 'absolute',
           display: 'inline',
           transition: 'all 0.35s ease',
