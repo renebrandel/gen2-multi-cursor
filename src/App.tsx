@@ -37,7 +37,7 @@ function App() {
         }
 
         setCursors(oldCursors => {
-          return { ...oldCursors,  [event.data.subscribeCursor.username]: event.data.subscribeCursor }
+          return { ...oldCursors, [event.data.subscribeCursor.username]: event.data.subscribeCursor }
         })
       }
     })
@@ -64,55 +64,34 @@ function App() {
 
   return (
     <>
-      <div style={{
-        background: 'linear-gradient(135deg, rgb(117, 81, 194), rgb(255, 255, 255))',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        userSelect: 'none',
-        overflow: 'hidden'
-      }}>
-        {Object.keys(cursors).map(username => <div style={{
-          background: colors[username],
-          position: 'absolute',
-          display: 'inline',
-          transition: 'all 0.35s ease',
-          left: window.innerWidth / 2 - cursors[username].x,
-          top: window.innerHeight / 2 - cursors[username].y,
-          borderRadius: '0 10px 10px 10px',
-          padding: '4px 8px',
-          wordWrap: 'unset',
-          whiteSpace: 'nowrap',
-          boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
-        }}>{username}</div>)}
+      <div className='cursor-panel'>
+        {Object.keys(cursors)
+          .map(username =>
+            <Cursor
+              username={username}
+              x={cursors[username].x}
+              y={cursors[username].y}
+              key={username} />)}
       </div>
-      <div style={{
-        top: 32,
-        left: 0,
-        right: 0,
-        position: 'fixed',
-        textAlign: 'center',
-      }}>
-        <div style={{
-          display: 'inline-flex',
-          padding: '16px',
-          gap: '8px',
-          overflow: 'auto',
-          background: 'white',
-          boxShadow: '0 16px 24px rgba(0,0,0,0.3)',
-          borderRadius: '32px',
-        }}>
-
+      <div className='username-container'>
+        <div className="username-panel">
           Username
-          <button onClick={() => {
-            setUsername(window.prompt("New username") ?? username)
-          }} style={{ textDecoration: 'underline', fontWeight: 800, padding: 0, margin: 0 }}>{username}</button>
+          <button
+            onClick={() => {
+              setUsername(window.prompt("New username") ?? username)
+            }}>{username}</button>
         </div>
       </div>
     </>
   )
+}
+
+function Cursor({ username, x, y }: { username: string, x: number, y: number }) {
+  return <div className='cursor' style={{
+    background: colors[username],
+    left: window.innerWidth / 2 - x,
+    top: window.innerHeight / 2 - y,
+  }}>{username}</div>
 }
 
 export default App

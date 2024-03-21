@@ -5,38 +5,49 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.username-container {
+  top: 32px;
+  left: 0;
+  right: 0;
+  position: fixed;
+  text-align: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.username-panel {
+  display: inline-flex;
+  padding: 16px;
+  gap: 8px;
+  overflow: auto;
+  background: white;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+  border-radius: 32px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.username-panel>button {
+  text-decoration: underline;
+  font-weight: 800;
+  padding: 0;
+  margin: 0;
 }
 
-.card {
-  padding: 2em;
+.cursor-panel {
+  background: linear-gradient(135deg, rgb(117, 81, 194), rgb(255, 255, 255));
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  user-select: none;
+  overflow: hidden;
 }
 
-.read-the-docs {
-  color: #888;
+.cursor {
+  position: absolute;
+  display: inline;
+  transition: all 0.35s ease;
+  border-radius: 0 10px 10px 10px;
+  padding: 4px 8px;
+  word-wrap: unset;
+  white-space: nowrap;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
