@@ -53,7 +53,7 @@ function App() {
       noLeading: true
     })
 
-    function handleMouseMove(e) {
+    function handleMouseMove(e: MouseEvent) {
       const x = Math.round(window.innerWidth / 2 - e.clientX)
       const y = Math.round(window.innerHeight / 2 - e.clientY)
       debouncedPublish(username, x, y)
