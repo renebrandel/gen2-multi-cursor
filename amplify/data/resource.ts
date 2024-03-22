@@ -1,16 +1,16 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 
 const cursorType = {
+  roomId: a.string(),
     x: a.integer(),
     y: a.integer(),
     username: a.string()
 }
 
 const schema = a.schema({
-  Todo: a.model({
-      content: a.string(),
-    })
-    .authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+  Room: a.model({
+    name: a.string(),
+  }).authorization([a.allow.public()]),
 
   Cursor: a.customType(cursorType),
 
@@ -23,6 +23,7 @@ const schema = a.schema({
     })),
 
   subscribeCursor: a.subscription()
+    .arguments({ roomId: a.string().required() })
     .returns(a.ref('Cursor'))
     .for(a.ref('publishCursor'))
     .authorization([a.allow.public()])

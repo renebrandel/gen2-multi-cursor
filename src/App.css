@@ -5,6 +5,18 @@
   text-align: center;
 }
 
+
+.info-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-weight: 800;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
 .username-container {
   top: 32px;
   left: 0;
@@ -13,7 +25,7 @@
   text-align: center;
 }
 
-.username-panel {
+.control-panel {
   display: inline-flex;
   padding: 16px;
   gap: 8px;
@@ -23,11 +35,26 @@
   border-radius: 32px;
 }
 
-.username-panel>button {
+.control-panel>select {
   text-decoration: underline;
   font-weight: 800;
   padding: 0;
   margin: 0;
+  border: none;
+  outline: none;
+  font-size: inherit;
+}
+
+.control-panel>select>option {
+  width: auto;
+}
+
+.control-panel>button {
+  text-decoration: underline;
+  font-weight: 800;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
 }
 
 .cursor-panel {
@@ -43,10 +70,13 @@
 
 .cursor {
   position: absolute;
+  margin-left: 4px;
+  margin-top: 4px;
   display: inline;
-  border-radius: 0 10px 10px 10px;
+  border-radius: 0 12px 12px 12px;
   padding: 4px 8px;
   word-wrap: unset;
   white-space: nowrap;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  user-select: none;
 }
