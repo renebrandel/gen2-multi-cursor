@@ -44,7 +44,6 @@
 .cursor {
   position: absolute;
   display: inline;
-  transition: all 0.35s ease;
   border-radius: 0 10px 10px 10px;
   padding: 4px 8px;
   word-wrap: unset;
