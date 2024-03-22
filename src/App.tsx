@@ -96,7 +96,7 @@ function App() {
 
 function Cursor({ username, x, y, myself }: { username: string, x: number, y: number, myself?: boolean }) {
   return <div className='cursor' style={{
-    background: colors[username],
+    background: myself ? 'white' : colors[username],
     left: window.innerWidth / 2 - x,
     top: window.innerHeight / 2 - y,
     transition: myself ? '' : 'all .35s ease-out',
