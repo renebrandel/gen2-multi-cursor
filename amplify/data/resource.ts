@@ -1,10 +1,10 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 
 const cursorType = {
-  roomId: a.string(),
-    x: a.integer(),
-    y: a.integer(),
-    username: a.string()
+  roomId: a.string().required(),
+  x: a.integer().required(),
+  y: a.integer().required(),
+  username: a.string().required()
 }
 
 const schema = a.schema({

@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "@aws-appsync/utils": "^1.7.0",
-    "aws-amplify": "^6.0.21",
+    "aws-amplify": "^6.0.22-unstable.2b71e29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "throttle-debounce": "^5.0.0",
     "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^0.13.0-beta.9",
-    "@aws-amplify/backend-cli": "^0.12.0-beta.10",
+    "@aws-amplify/backend": "^0.13.0-beta.10",
+    "@aws-amplify/backend-cli": "^0.12.0-beta.12",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/throttle-debounce": "^5.0.2",

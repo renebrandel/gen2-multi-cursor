@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import './App.css'
-import { GraphQLSubscription, generateClient } from 'aws-amplify/data'
+import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '../amplify/data/resource'
 import { throttle } from 'throttle-debounce'
 import { uniqueNamesGenerator, animals, adjectives } from 'unique-names-generator'
@@ -28,30 +28,24 @@ function App() {
   const [rooms, setRooms] = useState<Schema["Room"][]>([defaultRoom])
 
   useEffect(() => {
-    const sub = client.graphql<GraphQLSubscription<{ subscribeCursor: { username: string, x: number, y: number } }>>({
-      query: /* GraphQL */ `subscription MySubscription {
-        subscribeCursor(roomId: "${currentRoomId}") {
-          roomId
-          username
-          y
-          x
-        }
-      }`
-    }).subscribe({
-      next: (event) => {
-        if (event.data.subscribeCursor.username === username) {
-          return
-        }
+    const sub = client
+      .subscriptions
+      .subscribeCursor({ roomId: currentRoomId })
+      .subscribe({
+        next: (data) => {
+          if (!data || data.username === username) {
+            return
+          }
 
-        if (!colors[event.data.subscribeCursor.username]) {
-          colors[event.data.subscribeCursor.username] = `hsl(${Math.random() * 360}, 100%, 50%)`
-        }
+          if (!colors[data.username]) {
+            colors[data.username] = `hsl(${Math.random() * 360}, 100%, 50%)`
+          }
 
-        setCursors(oldCursors => {
-          return { ...oldCursors, [event.data.subscribeCursor.username]: event.data.subscribeCursor }
-        })
-      }
-    })
+          setCursors(oldCursors => {
+            return { ...oldCursors, [data.username]: data }
+          })
+        }
+      })
 
     return () => sub.unsubscribe()
   }, [username, currentRoomId])
@@ -91,7 +85,7 @@ function App() {
         <div className='info-panel'>
           <span>
             Move cursor around to broadcast cursor position to others in the room.
-            <br/>
+            <br />
             Built with <a href="https://docs.amplify.aws/gen2">AWS Amplify Gen 2</a>.
           </span>
         </div>
