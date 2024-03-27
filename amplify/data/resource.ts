@@ -21,15 +21,15 @@ const schema = a.schema({
     .handler(a.handler.custom({
       entry: './publishCursor.js',
     })),
-
+  
   subscribeCursor: a.subscription()
-    .arguments({ roomId: a.string().required() })
-    .returns(a.ref('Cursor'))
     .for(a.ref('publishCursor'))
+    .arguments({ roomId: a.string(), myUsername: a.string() })
     .authorization([a.allow.public()])
     .handler(a.handler.custom({
-      entry: 'subscribeCursor.js',
+      entry: './subscribeCursor.js'
     }))
+    .returns(a.ref('Cursor'))
 });
 
 export type Schema = ClientSchema<typeof schema>;

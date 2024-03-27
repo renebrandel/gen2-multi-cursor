@@ -9,10 +9,12 @@ const client = generateClient<Schema>()
 
 const colors: Record<string, string> = {}
 
-const defaultRoom = {
+const defaultRoom: Schema["Room"] = {
   id: "default",
-  name: "default"
-} as Schema["Room"]
+  name: "default",
+  createdAt: "",
+  updatedAt: ""
+}
 
 function App() {
   const [cursors, setCursors] = useState<Record<string, { x: number, y: number }>>({})
@@ -28,24 +30,26 @@ function App() {
   const [rooms, setRooms] = useState<Schema["Room"][]>([defaultRoom])
 
   useEffect(() => {
-    const sub = client
-      .subscriptions
-      .subscribeCursor({ roomId: currentRoomId })
-      .subscribe({
-        next: (data) => {
-          if (!data || data.username === username) {
-            return
-          }
+    // Add subscriptions here
+    const sub = client.subscriptions.subscribeCursor({
+      roomId: currentRoomId,
+      myUsername: username
+    }).subscribe({
+      next: (event) => {
+        if (!event) { return }
 
-          if (!colors[data.username]) {
-            colors[data.username] = `hsl(${Math.random() * 360}, 100%, 50%)`
-          }
-
-          setCursors(oldCursors => {
-            return { ...oldCursors, [data.username]: data }
-          })
+        if (!colors[event.username]) {
+          colors[event.username] = `hsl(${Math.random() * 360}, 100%, 50%)`
         }
-      })
+
+        setCursors(cursors => {
+          return {
+            ...cursors,
+            [event.username]: event
+          }
+        })
+      }
+    })
 
     return () => sub.unsubscribe()
   }, [username, currentRoomId])

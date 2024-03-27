@@ -1,9 +1,10 @@
 import { util, extensions } from '@aws-appsync/utils'
-export const request = () => ({ payload: null });
+export const request = () => ({ });
 
-export function response(ctx) {
+export const response = (ctx) => {
 	const filter = {
-			roomId: { eq: ctx.arguments.roomId }
+			roomId: { eq: ctx.arguments.roomId },
+			username: { ne: ctx.arguments.myUsername }
 	}
 	extensions.setSubscriptionFilter(util.transform.toSubscriptionFilter(filter))
 	return null;

@@ -1,9 +1,3 @@
-export function request() {
-  return {
-    payload: null
-  }
-}
+export const request = () => ({ })
 
-export function response(ctx) {
-  return ctx.arguments
-}
+export const response = (ctx) => ctx.arguments
