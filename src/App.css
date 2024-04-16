@@ -79,4 +79,5 @@
   white-space: nowrap;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   user-select: none;
+  z-index: 1;
 }
